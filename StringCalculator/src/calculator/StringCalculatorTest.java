@@ -6,10 +6,16 @@ import org.junit.Test;
 
 public class StringCalculatorTest {
 
+	StringCalculator sc = new StringCalculator();
+	
 	@Test
 	public void shouldReturnZeroOnEmptyString() {
-		StringCalculator sc = new StringCalculator();
 		assertEquals(0, sc.Add(""));
+	}
+	
+	@Test
+	public void shouldReturnNumberOnSingleNumberInput() {
+		assertEquals(1, sc.Add("1"));
 	}
 
 }
