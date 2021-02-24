@@ -2,21 +2,28 @@ package calculator;
 
 import java.util.*;
 import java.util.regex.*;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
 
 	public int Add(String numbers) {
-		if(numbers.isEmpty()) {
-			return 0;
-		} else {
 			String[] numberArray = split(numbers);
 			List<Integer> integers = getIntegerValues(numberArray);
+			checkForNegatives(integers);
 			return sum(integers);
+	}
+
+	private void checkForNegatives(List<Integer> integers) {
+		List<Integer> negatives = integers.stream().filter(s -> s < 0).collect(Collectors.toList());
+		if(negatives.size() > 0) {
+			throw new RuntimeException("Negatives are not allowed but got " + negatives.toString());
 		}
 	}
 
 	private String[] split(String numbers) {
-		if(numbers.startsWith("//")) {
+		if(numbers.isEmpty()) {
+			return new String[0];
+		} else if(numbers.startsWith("//")) {
 			return splitUsingCustomDelimiter(numbers);
 		}
 		return numbers.split(",|\n");

@@ -43,4 +43,24 @@ public class StringCalculatorTest {
 	public void RegexSpecialCharacterAsCustomDelimiter() {
 		assertEquals(3, sc.Add("//.\n1.2"));
 	}
+	
+	@Test
+	public void shouldNotAllowNegativeNumbers() {
+		try {
+			sc.Add("-1,2,3");
+			fail("Exception Expected");
+		} catch(RuntimeException e) {
+			//pass
+		}
+	}
+	
+	@Test
+	public void shouldProvideNegativeNumbersInExceptionMessage() {
+		try {
+			sc.Add("-1,2,-3");
+			fail("Exception Expected");
+		} catch(RuntimeException e) {
+			assertEquals("Negatives are not allowed but got [-1, -3]", e.getMessage());
+		}
+	}
 }
