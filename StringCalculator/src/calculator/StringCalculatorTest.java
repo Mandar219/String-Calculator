@@ -27,4 +27,10 @@ public class StringCalculatorTest {
 	public void shouldReturnSumOnMoreThanTwoNumbersInput() {
 		assertEquals(6, sc.Add("1,2,3"));
 	}
+	
+	@Test
+	public void shouldAllowNewlineAsDelimiter() {
+		assertEquals(6, sc.Add("1\n2,3"));
+		assertEquals(3, sc.Add("1\n2"));
+	}
 }
