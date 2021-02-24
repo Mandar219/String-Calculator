@@ -28,14 +28,26 @@ public class StringCalculator {
 	private String[] split(String numbers) {
 		if(numbers.isEmpty()) {
 			return new String[0];
-		} else if(numbers.startsWith("//")) {
-			return splitUsingCustomDelimiter(numbers);
+		} else if(checkForDelimiterOfAnyLength(numbers)) {
+			Pattern p = Pattern.compile("//\\[(.*?)\\]\n(.*)");
+			return splitUsingCustomDelimiter(numbers, p);
+		} else if(checkForCustomDelimiter(numbers)) {
+			Pattern p = Pattern.compile("//(.*?)\n(.*)");
+			return splitUsingCustomDelimiter(numbers, p);
 		}
 		return numbers.split(",|\n");
 	}
 
-	private String[] splitUsingCustomDelimiter(String numbers) {
-		Pattern p = Pattern.compile("//(.?)\n(.*)");
+	private boolean checkForCustomDelimiter(String numbers) {
+		return numbers.startsWith("//");
+	}
+
+	private boolean checkForDelimiterOfAnyLength(String numbers) {
+		return numbers.startsWith("//[");
+	}
+
+	private String[] splitUsingCustomDelimiter(String numbers, Pattern pattern) {
+		Pattern p = pattern;
 		Matcher m = p.matcher(numbers);
 		m.matches();
 		String customDelimiter = m.group(1);

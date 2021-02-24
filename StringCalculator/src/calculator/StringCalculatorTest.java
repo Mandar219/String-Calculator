@@ -68,4 +68,9 @@ public class StringCalculatorTest {
 	public void shouldIgnoreNumbersGreaterThanThousand() {
 		assertEquals(2, sc.Add("1001,2"));
 	}
+	
+	@Test
+	public void shouldAllowDelimiterOfAnyLength() {
+		assertEquals(3, sc.Add("//[***]\n1***2"));
+	}
 }
