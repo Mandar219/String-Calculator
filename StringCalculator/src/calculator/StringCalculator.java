@@ -10,7 +10,12 @@ public class StringCalculator {
 			String[] numberArray = split(numbers);
 			List<Integer> integers = getIntegerValues(numberArray);
 			checkForNegatives(integers);
+			integers = filter(integers);
 			return sum(integers);
+	}
+
+	private List<Integer> filter(List<Integer> integers) {
+		return integers.stream().filter(s -> s <= 1000).collect(Collectors.toList());
 	}
 
 	private void checkForNegatives(List<Integer> integers) {
