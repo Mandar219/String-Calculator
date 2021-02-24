@@ -34,7 +34,13 @@ public class StringCalculatorTest {
 		assertEquals(3, sc.Add("1\n2"));
 	}
 	
+	@Test
 	public void shouldAllowCustomDelimiter() {
 		assertEquals(3, sc.Add("//;\n1;2"));
+	}
+	
+	@Test
+	public void RegexSpecialCharacterAsCustomDelimiter() {
+		assertEquals(3, sc.Add("//.\n1.2"));
 	}
 }

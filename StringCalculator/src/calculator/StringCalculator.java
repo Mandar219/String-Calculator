@@ -26,10 +26,9 @@ public class StringCalculator {
 		Pattern p = Pattern.compile("//(.?)\n(.*)");
 		Matcher m = p.matcher(numbers);
 		m.matches();
-		String custom = m.group(1);
+		String customDelimiter = m.group(1);
 		String value = m.group(2);
-		String customDelimiter = custom + "|\n";
-		return value.split(customDelimiter);
+		return value.split(Pattern.quote(customDelimiter));
 	}
 
 	private int sum(List<Integer> integers) {
