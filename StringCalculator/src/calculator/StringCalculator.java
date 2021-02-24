@@ -1,6 +1,7 @@
 package calculator;
 
 import java.util.*;
+import java.util.regex.*;
 
 public class StringCalculator {
 
@@ -15,7 +16,20 @@ public class StringCalculator {
 	}
 
 	private String[] split(String numbers) {
+		if(numbers.startsWith("//")) {
+			return splitUsingCustomDelimiter(numbers);
+		}
 		return numbers.split(",|\n");
+	}
+
+	private String[] splitUsingCustomDelimiter(String numbers) {
+		Pattern p = Pattern.compile("//(.?)\n(.*)");
+		Matcher m = p.matcher(numbers);
+		m.matches();
+		String custom = m.group(1);
+		String value = m.group(2);
+		String customDelimiter = custom + "|\n";
+		return value.split(customDelimiter);
 	}
 
 	private int sum(List<Integer> integers) {
