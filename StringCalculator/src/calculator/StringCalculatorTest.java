@@ -22,4 +22,9 @@ public class StringCalculatorTest {
 	public void shouldReturnSumOnTwoNumbersInput() {
 		assertEquals(3, sc.Add("1,2"));
 	}
+	
+	@Test
+	public void shouldReturnSumOnMoreThanTwoNumbersInput() {
+		assertEquals(6, sc.Add("1,2,3"));
+	}
 }
