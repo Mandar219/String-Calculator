@@ -28,9 +28,9 @@ public class StringCalculator {
 	private String[] split(String numbers) {
 		if(numbers.isEmpty()) {
 			return new String[0];
-		} else if(checkForDelimiterOfAnyLength(numbers)) {
-			Pattern p = Pattern.compile("//\\[(.*?)\\]\n(.*)");
-			return splitUsingCustomDelimiter(numbers, p);
+		} else if(checkForVariedOrMultipleDelimiters(numbers)) {
+			Pattern p = Pattern.compile("\\[(.*?)\\]");
+			return splitUsingMultipleDelimiters(numbers, p);
 		} else if(checkForCustomDelimiter(numbers)) {
 			Pattern p = Pattern.compile("//(.*?)\n(.*)");
 			return splitUsingCustomDelimiter(numbers, p);
@@ -42,8 +42,43 @@ public class StringCalculator {
 		return numbers.startsWith("//");
 	}
 
-	private boolean checkForDelimiterOfAnyLength(String numbers) {
+	private boolean checkForVariedOrMultipleDelimiters(String numbers) {
 		return numbers.startsWith("//[");
+	}
+	
+	private String[] splitUsingMultipleDelimiters(String numbers, Pattern pattern) {
+		Matcher m = pattern.matcher(numbers);
+		m.matches();
+		String replace = getReplacement(m);
+		String value = getNumberstoCalculate(numbers);
+		value = modify(replace, value);
+		return value.split(",");
+	}
+
+	private String modify(String replace, String value) {
+		value = value.replaceAll(replace, "");
+		value = value.replaceAll("", ",");
+		value = value.substring(1, value.length()-1);
+		return value;
+	}
+
+	private String getNumberstoCalculate(String numbers) {
+		int index = numbers.indexOf("\n");
+		String value = numbers.substring(index + 1);
+		return value;
+	}
+
+	private String getReplacement(Matcher m) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		while(m.find()) {
+			sb.append(m.group(1));
+			sb.append(",");
+		}
+		sb.replace(sb.length()-1, sb.length(), "");
+		sb.append("]");
+		String replace = sb.toString();
+		return replace;
 	}
 
 	private String[] splitUsingCustomDelimiter(String numbers, Pattern pattern) {

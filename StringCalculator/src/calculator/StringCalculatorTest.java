@@ -40,7 +40,7 @@ public class StringCalculatorTest {
 	}
 	
 	@Test
-	public void RegexSpecialCharacterAsCustomDelimiter() {
+	public void shouldAllowRegexSpecialCharacterAsCustomDelimiter() {
 		assertEquals(3, sc.Add("//.\n1.2"));
 	}
 	
@@ -72,5 +72,15 @@ public class StringCalculatorTest {
 	@Test
 	public void shouldAllowDelimiterOfAnyLength() {
 		assertEquals(3, sc.Add("//[***]\n1***2"));
+	}
+	
+	@Test
+	public void shouldAllowMultipleDelimiters() {
+		assertEquals(6, sc.Add("//[*][%]\n1*2%3"));
+	}
+	
+	@Test
+	public void shouldAllowMultipleDelimitersOfVariedLength() {
+		assertEquals(10, sc.Add("//[***][%%][&]\n1***2%%3&4"));
 	}
 }
