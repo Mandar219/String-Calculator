@@ -1,5 +1,5 @@
 # String-Calculator
-This is a part of assignment given by Incubuyte Datatech Pvt Ltd.
+This is a part of assignment given by Incubyte Datatech Pvt Ltd.
 
 
 #### [Link for the assignment](https://osherove.com/tdd-kata-1)
